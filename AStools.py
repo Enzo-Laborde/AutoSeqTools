@@ -875,20 +875,3 @@ if __name__ == "__main__":
 		IFcomplexity(seq, args)
 
 
-
-# SPECIAL SECTION for test :
-	# m = 1
-	# n = 1
-	# i = 0
-	# while i < len(PPL)/27:
-	# 	print(n - 1, ':', PPL[n - 1], '  ', m - 1, ':', PPL[m - 1], '  =  ', PPL[n - 1] == PPL[m - 1])
-	# 	i += 1
-	# 	n = 9 * i + 1
-	# 	m = i
-
-	# e = gen_d(args['-n'])
-	# print(len(e), len(d))
-	# print(e[:100],d[:100])
-	# print(e==d)
-# END Special section
-
