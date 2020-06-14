@@ -1,0 +1,91 @@
+Main function that compute the PPL and calculate the kernel. 
+The kernel computation calculate necessary lenght for the infinite word prefix and compute the i-th iteration kernel (k**i)*n + j, for increasing prefix size, to study cardinality changes in kernel.
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+List of arguments. Arguments order can be any, but [Morphism] and [coding] must be in first :
+
+	1st argument : Morphism that generate the infinite word (in order a-z, 0-9, A-Z),
+		syntax : 'ab,ba' for the Thue-Morse Word, map a to ab and b to ba.
+
+	2nd argument : Coding that map each caractere in order a-z, 0-9, A-Z to the given letter,
+		syntax : '0,0,1,1' map a, b to 0 and c, d to 1.
+		This argument is optionnal, but must be in second if used.
+
+	>>> Other arguments for generation <<<
+ 
+		-n<lenght> : lenght of the infinite word to genere.
+			if not specified, default is 128.
+			/!\ If you use '-k' argument, don't use '-n' or cardinality may be incorrect !
+
+		-w<lenght> : Show the prefix of lenght <lenght> of infinite word generated.
+			If <lenght> is not specified, default is -n.<lenght>.
+
+		-p<lenght> : Show the prefix of lenght <lenght> of PPL sequence.
+			if <lenght> is not specified, default is -n.<lenght>.
+
+		-d<lenght> : Show the prefix of lenght <lenght> of diference sequence d(n) = PPL(n) - PPL(n+1).
+			If <lenght> is not specified, default is -n.<lenght>.
+
+	>>> kernel <<<
+
+		-k<value><sequence> : compute the <value>-kernel of the <sequence> sequence (in : w, p or d).
+			If <value> is not specified, compute the 2-kernel,
+			If <sequence> is not specified, compute the kernel for the infinite word w.
+			/!\ When used, don't use '-n', lenght will be calculated automatically.
+
+		-i<value> : Number of iteration of k**i to compute the kernel
+			Is not specified, default is 6.
+
+		-s<value> : Lenght of all subsequences in the kernel.
+			If not specified, default is 32.
+
+		-z<value> : Multipli <value> times by -k.<value> the lenght of subsequences in kernel.
+			E.g. : [...] -k3w -i4 -s9 -z3 will compute 3**4 kernel iter. for subseq. lenght 9, 27, 81 and 243. 
+			If not specified, default is 0.
+
+		-u<value> : Len to show of subsequences in kernel (only for ergonomic reasons, width terminal for example).
+			If value -u.<value> is -1, then show all the subsequence
+
+		-IShow<value> : Show the content of the k-kernel computed.
+			If not specified, default value is equal to -i.<value>.
+			Can also specify -1 to show content of all kernel.
+
+		-IVerb : Show all intermediate (k**j, j<i) computed kernel (smaller prefix computed).
+
+		-m : Print kernel cardinality matrix for (horizontal) iterations (-i) and (vertical) increasing sequence lenght (-z).
+
+	>>> Morphism detection <<<
+
+		-f : Try to find the morphism that generate the d(n) sequence.
+
+		-FStep<value> : Number of verification to check if morphism is good (check if 1 antecedent = 1 image).
+			If not specified, default is 50.
+
+		-FWord<value> : Maximal pre-image (word) size the morphism can take.
+			If not specified, default is 4.
+
+		-FMap<value> : Maximal size of the morphism image is greater than morphism antecedent (is = FWord.<value> * FMap.<value>).
+			If not specified, default is 10
+
+		-FVerb : Show all steps to find the morphism.
+
+	>>> Complexity <<<
+
+		-c<value><sequence> : Calculating the i-complexity for i <= <value> in sequence <sequence> 
+			(i-th complexity is the number of word (blocks) of lenght i in the sequence).
+			If not specified, default is 10w.
+
+		-CStep<value> : Compute complexity <value> time for sequence lenght in range(value, value+seqLen, value).
+			If not specified, default is 1.
+
+	>>> Debugging <<<
+
+		--args : Show dictionary of all arguments before running the program.
+
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+Example : 
+	>>> python AStools.py ab,ba -w256 -p64 -d64 -k2d -i8 -IShow -IVerb -z6 -s32 -m -fd -c4d -CStep8 > result.txt
+
+	... will give all informations about the Thue-Morse word, on a file named 'result.txt' (Pipe redirection '>' is for PowerShell).
