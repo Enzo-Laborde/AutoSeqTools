@@ -429,6 +429,7 @@ def genWord(length, m, c={}):
 def IFker(seq, args):
 	"""
 	Function that compute Kernel iterations for word length.
+	May be improved later, with all the functions related to the kernel computation.
 	"""
 
 	k = int(args['-k'][:len(args['-k']) - 1])
@@ -779,6 +780,7 @@ def codedMorphism(morphism, wordSize, mapSize):
 def IFcomplexity(seq, args):
 	"""
 	Give complexity of the sequence 'seq', up to specified value '-c' in args.
+	May be improved later, with all the functions related to the complexity computation.
 	"""
 	
 	print('\n* * * Computing complexity * * * \n')
