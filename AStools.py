@@ -674,7 +674,7 @@ def morphismDetectV2(seq: str, maxIter: int, wordSizeMax: int, mapSizeMax: int, 
 				print('\n  (Word Size = ', wordSize, ', Map Size = ', mapSize, ')', sep='')
 
 			# While no error and word enough tall to see his image 'd' in it ...
-			while continueToSearch and i * mapSize < len(seq):
+			while continueToSearch and (i + 1) * mapSize <= len(seq):
 
 				c = seq[i * wordSize:(i + 1) * wordSize] # Antecedent of morphism m
 				d = seq[i * mapSize:(i + 1) * mapSize] # Hypotetic image of c by morphism m
