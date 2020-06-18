@@ -673,16 +673,16 @@ def morphismDetectV2(seq: str, maxIter: int, wordSizeMax: int, mapSizeMax: int, 
 				print('\n  (Word Size = ', wordSize, ', Map Size = ', mapSize, ')', sep='')
 
 			# While no error and word enough tall to see his image 'd' in it ...
-			while continueToSearch and i * mapSize < len(seq):
+			while continueToSearch and (i + 1) * mapSize <= len(seq):
 
 				c = seq[i * wordSize:(i + 1) * wordSize] # Antecedent of morphism m
 				d = seq[i * mapSize:(i + 1) * mapSize] # Hypotetic image of c by morphism m
 
-				# If we've never seen c before, we check if the morphism is bijective
+				# If we've never seen c before, we check ...
 				if c not in morphism:
-					continueToSearch = bool(d not in morphism.values())
+					continueToSearch = bool(d not in morphism.values())  # ... If the morphism is bijective ...
 
-					# If the morphism is bijective...
+					# If no error ...
 					if continueToSearch:
 						morphism[c] = d  # Update the morphism
 						occurAnt[c] = checkMorphismEntry(seq, c, d, i * wordSize, maxIter)  # Number of occurences of c
